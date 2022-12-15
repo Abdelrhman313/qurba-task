@@ -26,14 +26,19 @@
 
     <div class="user" *ngIf="isLogin">
       <div class="search-input">
+        <i class="fa fa-search"></i>
         <input type="search" name="search_term" placeholder="Search">
       </div>
       <div class="account">
-        <span>
-          <span>5</span>
+        <span class="shopping-cart">
+          <span>10</span>
           <i class="fa-solid fa-cart-shopping"></i>
         </span>
-        <a [routerLink]="['/account']" routerLinkActive="active">Account</a>
+        <ul *ngIf="!openMenu">
+          <li>
+            <a [routerLink]="['/account']" routerLinkActive="active">Account</a>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -53,6 +58,9 @@
       </li>
       <li *ngIf="!isLogin">
         <a [routerLink]="['/auth']" routerLinkActive="active">Login</a>
+      </li>
+      <li>
+        <a [routerLink]="['/account']" routerLinkActive="active">Account</a>
       </li>
     </ul>
   </div>
