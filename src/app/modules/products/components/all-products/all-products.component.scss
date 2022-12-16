@@ -50,6 +50,18 @@
       .category {
         margin-bottom: 7px;
 
+        cursor: pointer;
+
+        * {
+          cursor: pointer;
+        }
+
+        &:hover {
+          label {
+            color: #41CCCC;
+          }
+        }
+
         input[type="radio"] {
           margin-right: 10px;
         }
@@ -59,6 +71,7 @@
           color: #1E1E1E;
           letter-spacing: 0.5px;
           text-transform: capitalize;
+          transition: 0.3s
         }
       }
     }

@@ -1,67 +1,38 @@
 <div class="header">
-  <div class="logo">
-    <span class="circle">
-      <span class="dot"></span>
-    </span>
-    <span>WebLogo</span>
-  </div>
+  <div class="logo"><span class="circle"><span class="dot"></span></span><span>WebLogo</span></div>
   <div class="menu" *ngIf="!openMenu">
     <ul>
-      <li>
-        <a [routerLink]="['']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
-      </li>
-
-      <li>
-        <a [routerLink]="['/product']" routerLinkActive="active">Products</a>
-      </li>
+      <li><a [routerLink]="['']" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
+      <li><a [routerLink]="['/product']" routerLinkActive="active">Products</a></li>
     </ul>
   </div>
-
   <div class="auth-user">
     <ul class="auth" *ngIf="!isLogin && !openMenu">
-      <li>
-        <a [routerLink]="['/auth']" routerLinkActive="active">Log In</a>
-      </li>
+      <li><a [routerLink]="['/auth']" routerLinkActive="active">Log In</a></li>
     </ul>
-
     <div class="user" *ngIf="isLogin">
-      <div class="search-input">
-        <i class="fa fa-search"></i>
-        <input type="search" name="search_term" placeholder="Search">
-      </div>
+      <div class="search-input"><i class="fa fa-search"></i><input type="search" name="search_term" [value]="searchTerm"
+          placeholder="Search" (input)="setSearchTerm($event.target)"><span class="err-msg" *ngIf="errMsg">search term
+          must be>5 letter
+          !</span></div>
       <div class="account">
         <span class="shopping-cart">
-          <span>10</span>
+          <span>{{cartProductsLength}}</span>
           <i class="fa-solid fa-cart-shopping"></i>
         </span>
         <ul *ngIf="!openMenu">
-          <li>
-            <a [routerLink]="['/account']" routerLinkActive="active">Account</a>
-          </li>
+          <li><a [routerLink]="['/account']" routerLinkActive="active">Account</a></li>
         </ul>
       </div>
     </div>
-  </div>
-
-  <button class="menu-toggler" (click)="openMenu = !openMenu">
-    <i *ngIf="!openMenu" class="fa fa-bars"></i>
-    <i *ngIf="openMenu" class="fa fa-close"></i>
-  </button>
-
+  </div><button class="menu-toggler" (click)="openMenu = !openMenu"><i *ngIf="!openMenu" class="fa fa-bars"></i><i
+      *ngIf="openMenu" class="fa fa-close"></i></button>
   <div class="small-screen-menu" *ngIf="openMenu">
     <ul>
-      <li>
-        <a [routerLink]="['']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a>
-      </li>
-      <li>
-        <a [routerLink]="['/product']" routerLinkActive="active">Products</a>
-      </li>
-      <li *ngIf="!isLogin">
-        <a [routerLink]="['/auth']" routerLinkActive="active">Login</a>
-      </li>
-      <li>
-        <a [routerLink]="['/account']" routerLinkActive="active">Account</a>
-      </li>
+      <li><a [routerLink]="['']" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}">Home</a></li>
+      <li><a [routerLink]="['/product']" routerLinkActive="active">Products</a></li>
+      <li *ngIf="!isLogin"><a [routerLink]="['/auth']" routerLinkActive="active">Login</a></li>
+      <li><a [routerLink]="['/account']" routerLinkActive="active">Account</a></li>
     </ul>
   </div>
 </div>

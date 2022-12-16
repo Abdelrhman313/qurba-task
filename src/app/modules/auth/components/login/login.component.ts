@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
 
@@ -17,7 +18,7 @@ export class LoginComponent implements OnInit {
   subscription: Subscription = new Subscription()
 
   logging: boolean = false
-  constructor(private fb: FormBuilder, private authService: AuthService) {
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) {
   }
 
   ngOnInit(): void {
@@ -52,7 +53,7 @@ export class LoginComponent implements OnInit {
             localStorage.setItem('token', res?.token)
             this.authService.userData.next(res)
             this.authService.userToken.next(res?.token)
-
+            this.router.navigate(['/product'])
           },
           error: (err: any) => {
 

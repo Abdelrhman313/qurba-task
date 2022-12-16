@@ -1,7 +1,7 @@
 <div class="all-products">
   <div class="head">
     <h2>{{category}}</h2>
-    <p>Home / Products / category / searchTerm</p>
+    <p>Home / Products {{category?'/ '+category:null}} {{searchTerm?'/ '+searchTerm:null}}</p>
   </div>
 
   <div class="container">
