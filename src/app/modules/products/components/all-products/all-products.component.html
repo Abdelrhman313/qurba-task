@@ -1,1 +1,85 @@
-<p>all-products works!</p>
+<div class="all-products">
+  <div class="head">
+    <h2>{{category}}</h2>
+    <p>Home / Products / category / searchTerm</p>
+  </div>
+
+  <div class="container">
+    <div class="sidebar">
+      <div class="categories">
+        <h4>Categories</h4>
+        <ng-container *ngFor="let category of categories">
+          <div class="category">
+            <input type="radio" [id]="category" name="category" [value]="category"
+              (change)="filterByCategory($event.target)">
+            <label [for]="category">{{category}}</label>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+    <div class="products">
+      <app-loading *ngIf="loading"></app-loading>
+      <div class="all" *ngIf="!loading">
+        <ng-container *ngFor="let product of products">
+          <div class="product">
+            <div class="product-img">
+              <!-- <img [src]="product.images[0]" alt="product image" title="product image" /> -->
+              <img [src]="product.thumbnail" alt="product image" title="product image" />
+              <span class="discound">-{{product.discountPercentage}}%</span>
+            </div>
+            <div class="product-info">
+              <h3>
+                <a [routerLink]="['details',product.id]">{{product.title}}</a>
+              </h3>
+              <p class="desc">{{product.description | slice:0:45}}</p>
+
+              <div class="price">
+                <span>
+                  <strong>{{product.price | currency:'':''}}</strong>
+                  USD
+                </span>
+                <span>
+                  <strong>{{((product.price / product.discountPercentage) * 100) | currency:' ':'symbol':'0.0-0'
+                    }}</strong>
+                  USD
+                </span>
+              </div>
+
+              <div class="details">
+                <p>
+                  <span>Brand: </span>
+                  <span>{{product.brand}}</span>
+                </p>
+
+                <p>
+                  <span>Category: </span>
+                  <span>{{product.category}}</span>
+                </p>
+
+                <p>
+                  <span>In stock: </span>
+                  <span>{{product.stock}}</span>
+                </p>
+              </div>
+
+              <div class="rating">
+                <i class="fa fa-star"></i>
+                <span>{{product.rating}}</span>
+                <span>(11)</span>
+              </div>
+
+              <button type="button" (click)="addToCart(product)">ADD TO CART</button>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+
+      <div class="pagination">
+        <ng-container *ngFor="let page of pages; let i = index">
+          <span (click)="changePage(page.number - 1, i)" [class]="page.class">{{page.number}}</span>
+        </ng-container>
+
+      </div>
+    </div>
+  </div>
+</div>
