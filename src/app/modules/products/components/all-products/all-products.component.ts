@@ -1,3 +1,4 @@
+import Swal from 'sweetalert2';
 import { Subscription } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { ProductService } from 'src/app/shared/services/product.service';
@@ -47,6 +48,9 @@ export class AllProductsComponent implements OnInit {
         this.userId = res?.id
       }
     })
+    if (localStorage.getItem('userId')) {
+      this.userId = localStorage.getItem('userId');
+    }
   }
 
   // #### Get All Categories in init state
@@ -173,8 +177,14 @@ export class AllProductsComponent implements OnInit {
     this.cartService.addToCart(+this.userId, products).subscribe({
       next: (res: any) => {
         this.cartService.totalProductsInCart.next(res?.totalProducts);
+        Swal.fire(
+          { title: 'Add To Cart', text: 'Product Added To Cart Successfully', icon: 'success' }
+        )
       },
       error: (err: any) => {
+        Swal.fire(
+          { title: 'Add To Cart', text: 'something wrong in add product to cart', icon: 'error' }
+        )
       }
     })
   }

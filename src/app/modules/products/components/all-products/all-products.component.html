@@ -17,7 +17,7 @@
         </ng-container>
       </div>
     </div>
-    <div class="products">
+    <div *ngIf="products.length" class="products">
       <app-loading *ngIf="loading"></app-loading>
       <div class="all" *ngIf="!loading">
         <ng-container *ngFor="let product of products">
@@ -81,5 +81,6 @@
 
       </div>
     </div>
+    <div class="alert-danger" *ngIf="!products.length">No Result Match This Search!</div>
   </div>
 </div>

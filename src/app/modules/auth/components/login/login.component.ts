@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { AuthService } from 'src/app/shared/services/auth.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -51,13 +52,24 @@ export class LoginComponent implements OnInit {
           next: (res: any) => {
 
             localStorage.setItem('token', res?.token)
+            localStorage.setItem('userId', res?.id)
             this.authService.userData.next(res)
-            this.authService.userToken.next(res?.token)
-            this.router.navigate(['/product'])
+            this.authService.userToken.next(res?.token);
+            Swal.fire({
+              title: 'Login',
+              text: 'User Login Successfully!',
+              icon: 'success'
+            }).then(() => {
+              this.router.navigate(['/product'])
+            })
           },
           error: (err: any) => {
 
-            console.log(err?.message);
+            Swal.fire({
+              title: 'Login',
+              text: 'User Name Or Password Is Wrong',
+              icon: 'error'
+            })
 
           }
         })

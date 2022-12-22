@@ -45,6 +45,9 @@ export class HeaderComponent implements OnInit {
         this.userId = res?.id
       }
     })
+    if (localStorage.getItem('userId')) {
+      this.userId = localStorage.getItem('userId')
+    }
   }
 
   initSearchTerm() {
@@ -68,21 +71,17 @@ export class HeaderComponent implements OnInit {
 
   // get Total Products In Cart
   getTotalProductsInCart() {
-    this.cartService.totalProductsInCart.subscribe((res) => {
-      if (res) {
-        this.subscription.add(
-          this.cartService.getCartByUserId(this.userId).subscribe({
-            next: (res: any) => {
-              this.cartProductsLength = res?.carts[0]?.totalProducts;
-            },
-            error: (err) => {
-            }
-          })
-        )
-      } else {
-        this.cartProductsLength = 0
-      }
-    })
+    console.log(this.userId);
+    this.subscription.add(
+      this.cartService.getCartByUserId(this.userId).subscribe({
+        next: (res: any) => {
+          this.cartProductsLength = res?.carts[0]?.totalProducts;
+        },
+        error: (err) => {
+          console.log(err);
+        }
+      })
+    )
   }
 
   // using subscription if logout is exist to change state in header
